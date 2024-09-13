@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from complexity_analyzer import analyze_complexity
 from utils import write_output
 
-# Load environment variables
+# Load environment variables from .env file
 load_dotenv()
 
 API_KEY = os.getenv('API_KEY')
@@ -20,11 +20,14 @@ def main():
 
     for file_path in args.files:
         try:
-            # Analyze the complexity of the code in the file
+            # Read the file contents
             with open(file_path, 'r') as file:
                 code = file.read()
+            
+            # Analyze the complexity using the Grok API
             result = analyze_complexity(code, API_KEY, BASE_URL, args.model)
             
+            # Output the result
             if args.output:
                 write_output(args.output, result)
             else:
