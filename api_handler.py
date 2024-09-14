@@ -24,7 +24,7 @@ def send_code_to_groq(api_key, code, model="llama-v2"):
 
     # Payload for the API request
     data = {
-        "model": "llama-v2",
+        "model": model,
         "messages": [
             {"role": "system", "content": "You are a code complexity analyzer."},
             {"role": "user", "content": f"Analyze the complexity of this code:\n{code}"}
