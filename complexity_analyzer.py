@@ -2,7 +2,7 @@ import requests
 from api_handler import send_code_to_groq
 
 
-def analyze_complexity(code, api_key, model="llama-v2"):
+def analyze_complexity(code, api_key, model="llama3-70b-8192"):
     """
     Analyze the complexity of the given source code using Grok's API.
     
