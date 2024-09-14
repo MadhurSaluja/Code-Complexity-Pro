@@ -10,7 +10,7 @@ def send_code_to_grok(api_key, base_url, code, model):
     }
 
     data = {
-        "model": model,
+        "model": "llama3-8b-8192",
         "messages": [
             {"role": "system", "content": "You are a code complexity analyzer."},
             {"role": "user", "content": f"Analyze the complexity of this code:\n{code}"}
