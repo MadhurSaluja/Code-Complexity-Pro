@@ -1,8 +1,8 @@
 import requests
 
-def send_code_to_grok(api_key, base_url, code, model):
-    # Use the correct endpoint for the API
-    url = f"{base_url}/v1/completions"
+def send_code_to_grok(api_key, code, model):
+    # Hardcode the URL
+    url = "https://api.growcloud.com/completions"  # Example base URL for GrowCloud API
 
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -10,7 +10,7 @@ def send_code_to_grok(api_key, base_url, code, model):
     }
 
     data = {
-        "model": "llama3-8b-8192",
+        "model": model,
         "messages": [
             {"role": "system", "content": "You are a code complexity analyzer."},
             {"role": "user", "content": f"Analyze the complexity of this code:\n{code}"}

@@ -8,10 +8,9 @@ from utils import write_output
 load_dotenv()
 
 API_KEY = os.getenv('API_KEY')
-BASE_URL = os.getenv('BASE_URL')
 
 def main():
-    parser = argparse.ArgumentParser(description="Code Complexity Analyzer using Grok API")
+    parser = argparse.ArgumentParser(description="Code Complexity Analyzer using GrowCloud API")
     parser.add_argument('files', nargs='+', help='Source code files to analyze')
     parser.add_argument('--model', '-m', default="llama-v2", help='LLM model to use')
     parser.add_argument('--output', '-o', help='File to write the output')
@@ -24,8 +23,8 @@ def main():
             with open(file_path, 'r') as file:
                 code = file.read()
             
-            # Analyze the complexity using the Grok API
-            result = analyze_complexity(code, API_KEY, BASE_URL, args.model)
+            # Analyze the complexity using the API key only
+            result = analyze_complexity(code, API_KEY, args.model)
             
             # Output the result
             if args.output:
