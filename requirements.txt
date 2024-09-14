@@ -1,3 +1,3 @@
-python-dotenv
-requests
-argparse
+python-dotenv  # Manage environment variables
+requests       # For API calls
+argparse       # Parse command-line arguments

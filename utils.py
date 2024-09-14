@@ -1,7 +1,10 @@
-def write_output(file_path, content):
-    try:
-        with open(file_path, 'w') as file:
-            file.write(content)
-        print(f"Output successfully written to {file_path}")
-    except Exception as e:
-        print(f"Error writing to file: {str(e)}")
+def write_output(file_path, data):
+    """
+    Write the given data to the specified file.
+    
+    Args:
+    - file_path: The path of the file where the data should be written.
+    - data: The content to write into the file.
+    """
+    with open(file_path, 'w') as f:
+        f.write(data)

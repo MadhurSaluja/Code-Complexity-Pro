@@ -10,7 +10,13 @@ load_dotenv()
 API_KEY = os.getenv('API_KEY')
 
 def main():
-    parser = argparse.ArgumentParser(description="Code Complexity Analyzer using GrowCloud API")
+    """
+    Main function to handle command-line arguments, analyze code, and save the results.
+    
+    - Accepts one or more source code files to analyze.
+    - Allows specification of the AI model and output file.
+    """
+    parser = argparse.ArgumentParser(description="Code Complexity Analyzer using Grok API")
     parser.add_argument('files', nargs='+', help='Source code files to analyze')
     parser.add_argument('--model', '-m', default="llama-v2", help='LLM model to use')
     parser.add_argument('--output', '-o', help='File to write the output (optional, default is <filename>_analysis.txt)')
@@ -20,31 +26,22 @@ def main():
     for file_path in args.files:
         try:
             # Read the file contents
-            with open(file_path, 'r') as file:
-                code = file.read()
-            
-            # Analyze the complexity using the API key only
-            result = analyze_complexity(code, API_KEY, args.model)
-            
-            # Print the result to terminal
-            print(f"Analysis for {file_path}:\n{result}")
-            
-            # Generate the output file name if not provided
-            if args.output:
-                output_file = args.output
-            else:
-                output_file = f"{os.path.splitext(file_path)[0]}_analysis.txt"
-            
-            # Write the result to the file
-            with open(output_file, 'w') as file:
-                file.write(result)
-            
-            print(f"Result saved to {output_file}")
-            
-        except FileNotFoundError:
-            print(f"Error: {file_path} not found.")
-        except Exception as e:
-            print(f"An error occurred: {e}")
+            with open(file_path, 'r') as f:
+                code = f.read()
 
-if __name__ == "__main__":
+            # Analyze the code complexity
+            result = analyze_complexity(code, API_KEY, args.model)
+
+            # Determine output file
+            output_file = args.output if args.output else f"{file_path}_analysis.txt"
+            
+            # Save the result to the output file
+            write_output(output_file, result)
+
+        except FileNotFoundError:
+            print(f"File {file_path} not found.")
+        except Exception as e:
+            print(f"Error processing {file_path}: {e}")
+
+if __name__ == '__main__':
     main()
