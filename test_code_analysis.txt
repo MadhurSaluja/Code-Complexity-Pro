@@ -1,24 +1,22 @@
-Let's break down the complexity of each function and the overall code:
+Let's analyze the complexity of this code:
 
-**`calculate_factorial(n)` function:**
+**calculate_factorial(n) function:**
 
-* The function has a recursive structure, where it calls itself until it reaches the base case (`n == 0`).
-* The time complexity of this function is O(n), because it makes n recursive calls.
-* The space complexity is also O(n), because each recursive call adds a new layer to the call stack.
+* The function has a recursive structure, where it calls itself with `n-1` as an argument until `n` reaches 0.
+* The number of recursive calls is equal to `n`, since the function calls itself `n` times until it reaches the base case (`n == 0`).
+* In each recursive call, the function performs a constant amount of work ( multiplication and a function call).
+* Therefore, the time complexity of the `calculate_factorial` function is O(n), where n is the input parameter.
 
-**`is_prime(num)` function:**
+**is_prime(num) function:**
 
-* The function has a simple iterative structure, where it checks divisibility of `num` with numbers from 2 to `num-1`.
-* The time complexity of this function is O(n), because it iterates up to `num` times.
-* The space complexity is O(1), because it only uses a fixed amount of space to store the loop variable and the result.
+* The function has a loop that iterates from 2 to `num-1`.
+* In each iteration, the function performs a constant amount of work (a modulus operation and a conditional check).
+* The number of iterations is `num-1`, which makes the time complexity of the `is_prime` function O(n), where n is the input parameter.
 
-**Overall code:**
+**Overall complexity:**
 
-* The code calls `calculate_factorial(5)` and `is_prime(11)`, which have complexities O(5) and O(11), respectively.
-* Since these complexities are constants, we can simplify them to O(1) each.
-* The overall time complexity of the code is O(1) + O(1) = O(1), because the complexities are additive.
-* The overall space complexity is also O(1), because the space usage is constant.
+* The `calculate_factorial` function is called with `n=5`, which has a time complexity of O(5) = O(1) (since 5 is a constant).
+* The `is_prime` function is called with `num=11`, which has a time complexity of O(11) = O(1) (since 11 is a constant).
+* Since both function calls have a constant time complexity, the overall complexity of the code is O(1).
 
-So, the overall complexity of this code is O(1) for time and O(1) for space.
-
-Note that the `is_prime(num)` function has a poor time complexity for large values of `num`, because it checks divisibility up to `num`. A more efficient approach would be to check up to the square root of `num`, which would reduce the time complexity to O(√n).
+However, it's worth noting that if the input parameters `n` and `num` were not constants, the overall complexity would be O(n) due to the recursive structure of the `calculate_factorial` function and the loop in the `is_prime` function.
