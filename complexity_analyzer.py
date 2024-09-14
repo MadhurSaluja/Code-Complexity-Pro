@@ -15,5 +15,8 @@ def analyze_complexity(code, api_key, model="llama-v2"):
     try:
         result = send_code_to_grok(api_key, code, model)
         return result
+    except requests.exceptions.RequestException as e:
+        return f"API error: {str(e)}"
     except Exception as e:
-        return f"Error analyzing code complexity: {str(e)}"
+        return f"Unexpected error: {str(e)}"
+
