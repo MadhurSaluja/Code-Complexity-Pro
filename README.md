@@ -1,54 +1,31 @@
-# Code Complexity Analyzer
+# Project Name
 
-This command-line tool analyzes the complexity of source code files using Grok's LLM API.
+## Overview
 
-## Requirements
-
-- Python 3.x
-- Groq API Key (store in `.env` file)
-
-## Installation
-
-1. Clone the repository:
-
-git clone https://github.com/yourusername/code-complexity-analyzer.git
-
-
-2. Install dependencies:
-
-pip install -r requirements.txt
-
-
-3. Create a `.env` file with your Grok API key:
-
-API_KEY=your-grok-api-key-here BASE_URL=[https://console.groq.com](https://api.groq.com/openai/v1/chat/completions)
-
-## Usage
-
-Analyze a single file:
-python main.py path/to/file.py
-
-
-Analyze multiple files:
-python main.py file1.py file2.js
-
-
-Specify a model:
-
-python main.py file.py --model llama-v2
-
-Specify an output file:
-
-python main.py file.py --output analysis.txt
-
-
-For help:
-
+This project contains a set of Python scripts designed to perform various tasks such as API handling, complexity analysis, and utility functions. The primary objective of the project is to provide tools for processing and analyzing data, with efficient algorithms implemented for specific use cases.
 
 ## Features
 
-- Analyze source code complexity using Grok's LLM.
-- Output results to the terminal or a file.
-- Specify the model and API configuration through `.env` or command-line arguments.
+- **API Handling**: Efficient API request handling using `requests`.
+- **Complexity Analysis**: Functions to calculate factorial and check if a number is prime, with an analysis of their time and space complexity.
+- **Utility Functions**: A set of helper functions designed to streamline tasks.
+- **Command-line Interface**: User-friendly command-line argument parsing using `argparse`.
 
+## File Structure
 
+- **main.py**: The main entry point of the project.
+- **api_handler.py**: Contains functionality for making API requests and handling responses.
+- **complexity_analyzer.py**: Implements mathematical algorithms such as factorial calculation and primality testing, with corresponding complexity analyses.
+- **utils.py**: Includes utility functions used throughout the project.
+- **test_code.py**: Unit tests for various functions in the project.
+- **LICENSE**: License information for the project.
+- **requirements.txt**: List of dependencies needed to run the project.
+
+## Setup
+
+To set up the project locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/projectname.git
+   cd projectname
