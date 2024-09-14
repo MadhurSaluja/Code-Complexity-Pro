@@ -5,7 +5,7 @@ This command-line tool analyzes the complexity of source code files using Grok's
 ## Requirements
 
 - Python 3.x
-- Grok API Key (store in `.env` file)
+- Groq API Key (store in `.env` file)
 
 ## Installation
 
@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 3. Create a `.env` file with your Grok API key:
 
-API_KEY=your-grok-api-key-here BASE_URL=https://console.groq.com
+API_KEY=your-grok-api-key-here BASE_URL=[https://console.groq.com](https://api.groq.com/openai/v1/chat/completions)
 
 ## Usage
 
