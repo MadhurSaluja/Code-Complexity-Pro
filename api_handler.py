@@ -1,30 +1,16 @@
 import requests
 
 def send_code_to_groq(api_key, code, model):
-    """
-    Send code to Grokq's API for complexity analysis.
-    
-    Args:
-    - api_key: Your API key for authentication.
-    - code: The source code to analyze.
-    - model: The AI model to use for analysis (e.g., llama-v2).
-    
-    Returns:
-    - The complexity analysis result from the API.
-    
-    Raises:
-    - Exception if the API request fails.
-    """
-    url = "https://api.groq.com/openai/v1/chat/completions"  # API endpoint URL
+    # Hardcode the URL
+    url = "https://api.groq.com/openai/v1/chat/completions"  # Example base URL for GrowCloud API
 
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
 
-    # Payload for the API request
     data = {
-        "model": model,
+        "model": "llama3-70b-8192",
         "messages": [
             {"role": "system", "content": "You are a code complexity analyzer."},
             {"role": "user", "content": f"Analyze the complexity of this code:\n{code}"}
