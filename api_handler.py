@@ -2,7 +2,7 @@ import requests
 
 def send_code_to_groq(api_key, code, model):
     """
-    Send code to Groq's API for complexity analysis.
+    Send code to Grokq's API for complexity analysis.
     
     Args:
     - api_key: Your API key for authentication.
