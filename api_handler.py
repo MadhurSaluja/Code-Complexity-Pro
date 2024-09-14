@@ -1,4 +1,9 @@
 import requests
+import os
+from dotenv import load_dotenv  # Import dotenv to load environment variables
+
+# Load environment variables from the .env file
+load_dotenv()
 
 def send_code_to_grok(api_key, code, model):
     """
@@ -15,8 +20,9 @@ def send_code_to_grok(api_key, code, model):
     Raises:
     - Exception if the API request fails.
     """
-    url = "https://api.groq.com/openai/v1/chat/completions"  # API endpoint URL
-
+    # Fetch the base URL from environment variables, or use a default backup URL
+    url = os.getenv('BASE_URL', 'https://default-backup-url.com')
+    
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
