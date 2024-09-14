@@ -1,6 +1,6 @@
 import requests
 
-def send_code_to_groq(api_key, code, model="llama-v2"):
+def send_code_to_groq(api_key, code, model):
     """
     Send code to Groq's API for complexity analysis.
     
