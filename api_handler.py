@@ -1,8 +1,8 @@
 import requests
 
-def send_code_to_grok(api_key, code, model):
+def send_code_to_groq(api_key, code, model="llama-v2"):
     """
-    Send code to Grok's API for complexity analysis.
+    Send code to Groq's API for complexity analysis.
     
     Args:
     - api_key: Your API key for authentication.
