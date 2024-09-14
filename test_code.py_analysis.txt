@@ -1,1 +1,26 @@
-Error analyzing code complexity: API request failed with status code 404: {"error":{"message":"The model `llama-v2` does not exist or you do not have access to it.","type":"invalid_request_error","code":"model_not_found"}}
+I'd be happy to help analyze the complexity of this code.
+
+The code consists of two functions: `calculate_factorial` and `is_prime`. Let's break down the complexity of each function:
+
+**1. `calculate_factorial(n)`**
+
+* The function has a recursive structure, with a base case of `n == 0`.
+* In the recursive case, the function calls itself with `n-1` as an argument.
+* The time complexity of this function is O(n), because the function calls itself n times.
+* The space complexity is O(n) as well, because each recursive call adds a new layer to the call stack.
+
+**2. `is_prime(num)`**
+
+* The function has a linear iterative structure, with a loop that runs from 2 to `num-1`.
+* In each iteration, the function checks if `num` is divisible by `i` using the modulo operator.
+* The time complexity of this function is O(n), because the loop runs `num-1` times.
+* The space complexity is O(1), because the function uses a constant amount of space to store the loop variable `i`.
+
+**Overall Complexity**
+
+* The overall time complexity of the code is O(n) + O(n) = O(2n) = O(n), because both functions have a linear time complexity.
+* The overall space complexity is O(n) + O(1) = O(n), because the `calculate_factorial` function has a recursive call stack that grows with `n`, while the `is_prime` function uses a constant amount of space.
+
+In conclusion, the code has a time complexity of O(n) and a space complexity of O(n).
+
+Note: The `print` statements at the end of the code have a constant time complexity of O(1) and do not affect the overall complexity of the code.
