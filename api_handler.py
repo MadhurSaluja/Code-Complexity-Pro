@@ -1,8 +1,8 @@
 import requests
 
 def send_code_to_grok(api_key, base_url, code, model):
-    # Append the correct path to the base URL
-    url = f"{base_url}/completions"
+    # Use the correct endpoint for the API
+    url = f"{base_url}/v1/completions"
 
     headers = {
         "Authorization": f"Bearer {api_key}",
