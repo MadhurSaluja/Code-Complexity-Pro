@@ -1,4 +1,4 @@
-from api_handler import send_code_to_grok
+from api_handler import send_code_to_groq
 import requests  # Import requests to handle API-specific exceptions
 
 def analyze_complexity(code, api_key, model="llama-v2"):
@@ -14,7 +14,7 @@ def analyze_complexity(code, api_key, model="llama-v2"):
     - Complexity analysis result or an error message if it fails.
     """
     try:
-        result = send_code_to_grok(api_key, code, model)
+        result = send_code_to_groq(api_key, code, model)
         return result
     except requests.exceptions.RequestException as e:
         # Handle API-related exceptions such as connectivity issues
