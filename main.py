@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(description="Code Complexity Analyzer using GrowCloud API")
     parser.add_argument('files', nargs='+', help='Source code files to analyze')
     parser.add_argument('--model', '-m', default="llama-v2", help='LLM model to use')
-    parser.add_argument('--output', '-o', help='File to write the output')
+    parser.add_argument('--output', '-o', help='File to write the output (optional, default is <filename>_analysis.txt)')
     
     args = parser.parse_args()
 
@@ -26,11 +26,21 @@ def main():
             # Analyze the complexity using the API key only
             result = analyze_complexity(code, API_KEY, args.model)
             
-            # Output the result
+            # Print the result to terminal
+            print(f"Analysis for {file_path}:\n{result}")
+            
+            # Generate the output file name if not provided
             if args.output:
-                write_output(args.output, result)
+                output_file = args.output
             else:
-                print(result)
+                output_file = f"{os.path.splitext(file_path)[0]}_analysis.txt"
+            
+            # Write the result to the file
+            with open(output_file, 'w') as file:
+                file.write(result)
+            
+            print(f"Result saved to {output_file}")
+            
         except FileNotFoundError:
             print(f"Error: {file_path} not found.")
         except Exception as e:
