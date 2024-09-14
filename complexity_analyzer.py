@@ -1,5 +1,6 @@
 from api_handler import send_code_to_grok
-import requests 
+import requests  # Import requests to handle API-specific exceptions
+
 def analyze_complexity(code, api_key, model="llama-v2"):
     """
     Analyze the complexity of the given source code using Grok's API.
@@ -16,7 +17,8 @@ def analyze_complexity(code, api_key, model="llama-v2"):
         result = send_code_to_grok(api_key, code, model)
         return result
     except requests.exceptions.RequestException as e:
-        return f"API error: {str(e)}"
+        # Handle API-related exceptions such as connectivity issues
+        return f"API error occurred: {str(e)}"
     except Exception as e:
-        return f"Unexpected error: {str(e)}"
-
+        # Handle any other general exceptions
+        return f"Error analyzing code complexity: {str(e)}"
