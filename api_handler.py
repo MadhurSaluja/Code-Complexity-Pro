@@ -21,7 +21,7 @@ def send_code_to_grok(api_key, code, model):
     - Exception if the API request fails.
     """
     # Fetch the base URL from environment variables, or use a default backup URL
-    url = os.getenv('BASE_URL', 'https://default-backup-url.com')
+    url = os.getenv('BASE_URL', 'https://api.groq.com/openai/v1/chat/completions')
     
     headers = {
         "Authorization": f"Bearer {api_key}",
