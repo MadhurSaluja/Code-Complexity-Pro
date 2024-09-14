@@ -2,7 +2,7 @@ import requests
 
 def send_code_to_grok(api_key, code, model):
     # Hardcode the URL
-    url = "https://api.growcloud.com/completions"  # Example base URL for GrowCloud API
+    url = "https://api.groq.com/openai/v1"  # Example base URL for GrowCloud API
 
     headers = {
         "Authorization": f"Bearer {api_key}",
