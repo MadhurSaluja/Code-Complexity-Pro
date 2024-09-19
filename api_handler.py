@@ -24,7 +24,7 @@ def send_code_to_groq(api_key, code, model):
 
     # If the request is successful (status code 200), return the analysis from the response
     if response.status_code == 200:
-        return response.json()["choices"][0]["message"]["content"]  # Extract and return the response content
+        return response.json()["choices"][0]["message"]["content"], response.json().get("usage", {})  # Extract and return the response content and the token usage
     else:
         # Raise an exception if the request fails, including the status code and error message
         raise Exception(f"API request failed with status code {response.status_code}: {response.text}")

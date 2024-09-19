@@ -20,6 +20,8 @@ def main():
     parser.add_argument('files', nargs='+', help='Source code files to analyze')
     parser.add_argument('--model', '-m', default="llama-v2", help='LLM model to use')
     parser.add_argument('--output', '-o', help='File to write the output (optional, default is <filename>_analysis.txt)')
+    #  --token-usage or -t flag to the argument parser and pass it to the analyze_complexity() function
+    parser.add_argument('--token-usage', '-t', action='store_true', help='Display token usage information')
     
     args = parser.parse_args()
 
@@ -29,8 +31,8 @@ def main():
             with open(file_path, 'r') as f:
                 code = f.read()
 
-            # Analyze the code complexity
-            result = analyze_complexity(code, API_KEY, args.model)
+            # Analyze the code complexity with or without token usage display
+            result = analyze_complexity(code, API_KEY, args.model, show_token_usage=args.token_usage)
 
             # Determine output file
             output_file = args.output if args.output else f"{file_path}_analysis.txt"
