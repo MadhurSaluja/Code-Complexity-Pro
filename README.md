@@ -1,4 +1,3 @@
-
 # Complexity Analyzer
 
 ## Overview
@@ -10,6 +9,7 @@ This project contains a set of Python scripts designed for complexity analysis o
 - **API Handling**: Efficiently handles API requests using `requests`.
 - **Complexity Analysis**: Functions to calculate factorials and check if a number is prime, with time and space complexity analyses.
 - **Command-line Interface**: User-friendly argument parsing with `argparse`.
+- **Token Usage Information**:Displays the number of tokens sent in the prompt and received in the completion when the `--token-usage` flag is set.
 
 ## File Structure
 
@@ -26,12 +26,14 @@ This project contains a set of Python scripts designed for complexity analysis o
 To set up the project locally, follow these steps:
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/projectname.git
    cd projectname
    ```
 
 2. Create a virtual environment (optional but recommended):
+
    ```bash
    python -m venv venv
    source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
@@ -80,6 +82,21 @@ python main.py --factorial 5
 
 This will return the factorial of 5.
 
+### Token Usage Feature
+
+If you'd like to know how many tokens were used in the prompt and the completion, you can add the `--token-usage` (or `-t`) flag to the command:
+
+```bash
+python main.py test_code.py --token-usage
+python main.py test_code.py -t
+```
+
+This will print the token usage information to stderr in the following format:
+
+```text
+Token Usage: Prompt Tokens = <number>, Completion Tokens = <number>, Total Tokens = <number>
+```
+
 ## Code Complexity Analysis
 
 The project implements functions such as `calculate_factorial(n)` and `is_prime(num)`. Below is a summary of their complexity:
@@ -87,13 +104,11 @@ The project implements functions such as `calculate_factorial(n)` and `is_prime(
 - **`calculate_factorial(n)`**:
   - Time complexity: O(n)
   - Space complexity: O(n)
-  
 - **`is_prime(num)`**:
   - Time complexity: O(n)
   - Space complexity: O(1)
 
 More detailed analysis is available in `test_code.py_analysis.txt`.
-
 
 ## License
 
