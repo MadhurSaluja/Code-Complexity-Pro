@@ -113,6 +113,12 @@ For sample files, check out the `examples/` directory in this repository. It con
 ```bash
 python main.py examples/test_code.py
 ```
+## Demo 
+
+
+
+https://github.com/user-attachments/assets/057ea6cb-816e-4385-ac8e-85fcbb83da68
+
 
 ## License
 
