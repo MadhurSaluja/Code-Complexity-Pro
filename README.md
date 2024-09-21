@@ -1,131 +1,119 @@
 
-# Code Complexity Analyzer
+# Code Complexity Pro
 
-This command-line tool analyzes the complexity of source code files using Grok's LLM API. It supports multiple file inputs, customizable AI model selection, and configurable API settings.
+This is a command-line tool that analyzes the complexity of source code files using Grok's LLM API. It supports multiple file inputs, customizable AI model selection, and various configuration options to suit your workflow. The project is part of **Release-0.1**, and here you will find everything you need to know about using and extending this tool.
 
 ## Features
-- **Version Display**: Use `--version` or `-v` to display the tool's name and current version.
-- **Help**: Use `--help` or `-h` to display the tool’s help message, showing how to run it, along with all available flags and arguments.
-- **File Input**: Accept one or more files for analysis.
-- **Output to stdout or file**: By default, outputs to stdout. You can specify an output file using the `--output` or `-o` flag.
-- **LLM Model Selection**: Specify a model using the `--model` or `-m` flag (default: `llama-v2`).
-- **API Key Configuration**: Optionally pass an API key via the `--api-key` or `-a` flag or configure it in the `.env` file.
-- **Base URL Configuration**: Optionally pass a base API URL via the `--base-url` or `-u` flag or configure it in the `.env` file.
-- **Error Handling**: Any errors, including missing files, are logged to `stderr`.
+
+- **Version Display**: Use the `--version` or `-v` flag to display the tool's name and current version.
+- **Help/Usage Instructions**: Use the `--help` or `-h` flag to display how to run the tool, along with available flags and arguments.
+- **File Input**: Analyze one or more source code files.
+- **Customizable Output**: By default, results are printed to the terminal (stdout), but you can specify an output file using the `--output` or `-o` flag.
+- **AI Model Selection**: Specify a model for the analysis using the `--model` or `-m` flag (default is `llama-v2`).
+- **API Key Configuration**: API keys can be passed via the `--api-key` or `-a` flag, or you can configure them in a `.env` file.
+- **Error Logging**: All debug and error messages are logged to `stderr`, keeping output clean.
 
 ## Requirements
 
 - Python 3.x
-- Grok API Key (stored in `.env` file or passed via command line)
+- Grok API Key (can be stored in `.env` file or passed via command line)
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the Repository**:
+   Clone this repository to your local machine using the following command:
+   ```bash
+   git clone https://github.com/MadhurSaluja/Release-0.1
+   cd Release-0.1
+   ```
 
-    ```bash
-    git clone https://github.com/yourusername/code-complexity-analyzer.git
-    ```
+2. **Install Dependencies**:
+   Install the required dependencies with:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-2. Navigate to the project directory:
-
-    ```bash
-    cd code-complexity-analyzer
-    ```
-
-3. Install dependencies:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. Create a `.env` file with your Grok API key and base URL:
-
-    ```
-    API_KEY=your-grok-api-key
-    BASE_URL=https://api.groq.com
-    ```
+3. **Set Up API Credentials**:
+   Create a `.env` file in the root of the project with your Grok API credentials:
+   ```bash
+   API_KEY=your-grok-api-key
+   BASE_URL=https://api.groq.com/openai/v1/chat/completions
+   ```
 
 ## Usage
 
+You can run the tool from the command line with various flags and options. Here are some examples:
+
 ### 1. Display Version
 
-Use the `--version` or `-v` flag to display the tool's version:
-
+Use the following command to check the tool's version:
 ```bash
 python main.py --version
 ```
 
-### 2. Display Help
+### 2. Show Help/Usage
 
-Use the `--help` or `-h` flag to display the usage instructions:
-
+Use the `--help` or `-h` flag to display usage information:
 ```bash
 python main.py --help
 ```
 
-### 3. Run with a Single File
+### 3. Run the Analyzer on a Single File
 
-Specify a single file to analyze:
-
+To analyze the complexity of a single file, use:
 ```bash
-python main.py ./file.js
+python main.py path/to/your_file.py
 ```
 
-### 4. Run with Multiple Files
+### 4. Analyze Multiple Files
 
-Provide multiple files for analysis:
-
+To analyze multiple files at once:
 ```bash
-python main.py file1.js file2.js
+python main.py file1.py file2.py
 ```
 
-### 5. Output to a File
+### 5. Save Results to a File
 
-To save the result to a file, use the `--output` or `-o` flag:
-
+Use the `--output` or `-o` flag to save the analysis to a file:
 ```bash
-python main.py file1.js -o result.txt
+python main.py your_file.py --output analysis_results.txt
 ```
 
-### 6. Specify an AI Model
+### 6. Specify a Different AI Model
 
-You can specify an AI model to use for analysis (default: `llama-v2`):
-
+By default, the tool uses the `llama-v2` model for analysis. You can specify another model like this:
 ```bash
-python main.py file1.js --model gpt-3.5
+python main.py your_file.py --model gpt-3.5
 ```
 
-or
+### 7. Pass API Key and Base URL via Command Line
 
+If you don’t want to use a `.env` file, you can pass the API key and base URL directly:
 ```bash
-python main.py file1.js -m gpt-3.5
+python main.py your_file.py --api-key your_grok_api_key --base-url https://api.custom-url.com
 ```
-
-### 7. API Key and Base URL
-
-You can pass the API key and base URL via the command line if not using the `.env` file:
-- **API Key**:
-  ```bash
-  python main.py file1.js --api-key your_api_key
-  ```
-  or
-  ```bash
-  python main.py file1.js -a your_api_key
-  ```
-
-- **Base URL**:
-  ```bash
-  python main.py file1.js --base-url https://api.custom-url.com
-  ```
-  or
-  ```bash
-  python main.py file1.js -u https://api.custom-url.com
-  ```
 
 ### 8. Error Handling
 
-If a file is missing, or any other error occurs, it will be logged to `stderr`:
+Errors, such as missing files or invalid input, will be printed to `stderr`. For example:
+```bash
+python main.py nonexistent_file.py
+```
+Will return:
+```
+Error: File nonexistent_file.py not found
+```
+
+## Examples
+
+For sample files, check out the `examples/` directory in this repository. It contains test files that you can use to run the tool and see how it works.
+
+### Running on Example File
 
 ```bash
-python main.py non_existing_file.js
+python main.py examples/test_code.py
 ```
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/MadhurSaluja/Release-0.1/blob/main/LICENSE) file for details.
