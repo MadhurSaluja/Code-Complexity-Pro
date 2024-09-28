@@ -54,15 +54,32 @@ def main():
     
     args = parser.parse_args()
 
-    # Use the API key from the command line or fall back to environment variable
-    api_key = args.api_key or os.getenv("API_KEY")
-    
-    if not api_key:
-        print("Error: API key must be provided either via --api-key or in the .env file.", file=sys.stderr)
+    # Handle version flag
+    if args.version:
+        print(f'{TOOL_NAME} version {VERSION}')
+        sys.exit(0)
+
+    # Ensure files are provided if not using the version/help flags
+    if not args.files:
+        parser.print_help()
+        sys.stderr.write("Error: No files provided for analysis\n")
         sys.exit(1)
 
-    # Process the provided paths (files or directories)
-    files_to_analyze = process_files(args.files)
+    # Check if API key is available
+    if not args.api_key:
+        sys.stderr.write("Error: API key not provided. Use --api-key or set it in the .env file.\n")
+        sys.exit(1)
+
+    success = True  # Track if all files are processed successfully
+
+    # Process each file
+    for file_path in args.files:
+        try:
+            with open(file_path, 'r') as f:
+                code = f.read()
+
+            # Analyze the complexity of the code
+            result = analyze_complexity(code, api_key=args.api_key, model=args.model)
 
     # Process each file and analyze complexity
     for file in files_to_analyze:
@@ -76,5 +93,18 @@ def main():
         else:
             print(result)
 
-if __name__ == "__main__":
+        except FileNotFoundError:
+            sys.stderr.write(f"Error: File '{file_path}' not found\n")
+            success = False
+        except Exception as e:
+            sys.stderr.write(f"Error: {str(e)} while processing '{file_path}'\n")
+            success = False
+
+    # Exit with 0 if all files were processed successfully, otherwise exit with 1
+    if success:
+        sys.exit(0)
+    else:
+        sys.exit(1)
+
+if __name__ == '__main__':
     main()
