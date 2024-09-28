@@ -6,6 +6,7 @@ from complexity_analyzer import analyze_complexity
 from utils import write_output
 
 TOOL_NAME = "Code Complexity Pro"
+VERSION = "1.0.0"
 
 # Load environment variables from a .env file if present
 load_dotenv()
@@ -49,6 +50,9 @@ def main():
     # Add an optional API key argument
     parser.add_argument('-a', '--api-key', type=str, help='API key for the analysis service')
 
+    # Version and help flags
+    parser.add_argument('-v', '--version', action='store_true', help='Display the version of the tool')
+    
     # Accept multiple files or directories
     parser.add_argument('files', nargs='+', help='One or more source code files or directories to analyze.')
     
@@ -59,45 +63,43 @@ def main():
         print(f'{TOOL_NAME} version {VERSION}')
         sys.exit(0)
 
-    # Ensure files are provided if not using the version/help flags
+    # Ensure files are provided
     if not args.files:
         parser.print_help()
         sys.stderr.write("Error: No files provided for analysis\n")
         sys.exit(1)
 
-    # Check if API key is available
-    if not args.api_key:
+    # Check if API key is available (from args or environment variable)
+    api_key = args.api_key or os.getenv('API_KEY')
+    if not api_key:
         sys.stderr.write("Error: API key not provided. Use --api-key or set it in the .env file.\n")
         sys.exit(1)
 
+    # Process the provided paths (files or directories)
+    files_to_analyze = process_files(args.files)
+
     success = True  # Track if all files are processed successfully
-
-    # Process each file
-    for file_path in args.files:
-        try:
-            with open(file_path, 'r') as f:
-                code = f.read()
-
-            # Analyze the complexity of the code
-            result = analyze_complexity(code, api_key=args.api_key, model=args.model)
 
     # Process each file and analyze complexity
     for file in files_to_analyze:
-        with open(file, 'r') as f:
-            code = f.read()
-        result = analyze_complexity(code, api_key, args.model)
-        
-        # Output result
-        if args.output:
-            write_output(args.output, result)
-        else:
-            print(result)
+        try:
+            with open(file, 'r') as f:
+                code = f.read()
+
+            # Analyze the complexity of the code
+            result = analyze_complexity(code, api_key=api_key, model=args.model)
+
+            # Output result
+            if args.output:
+                write_output(args.output, result)
+            else:
+                print(result)
 
         except FileNotFoundError:
-            sys.stderr.write(f"Error: File '{file_path}' not found\n")
+            sys.stderr.write(f"Error: File '{file}' not found\n")
             success = False
         except Exception as e:
-            sys.stderr.write(f"Error: {str(e)} while processing '{file_path}'\n")
+            sys.stderr.write(f"Error: {str(e)} while processing '{file}'\n")
             success = False
 
     # Exit with 0 if all files were processed successfully, otherwise exit with 1
