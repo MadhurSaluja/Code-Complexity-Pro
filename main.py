@@ -1,5 +1,6 @@
 import argparse
 import os
+import toml
 import sys
 from dotenv import load_dotenv
 from complexity_analyzer import analyze_complexity
@@ -10,6 +11,27 @@ VERSION = "1.0.0"
 
 # Load environment variables from a .env file if present
 load_dotenv()
+
+# Function to load config file from the home directory
+def load_config():
+    """
+    Load configuration settings from the user's home directory.
+    Returns a dictionary of configuration settings.
+    """
+    # Define the path to the config file in the home directory
+    config_path = os.path.expanduser("~/.Code-complexity-pro-config.toml")
+
+    # Check if the file exists
+    if os.path.exists(config_path):
+        try:
+            # Open and parse the TOML file
+            with open(config_path, "r") as file:
+                return toml.load(file)
+        except toml.TomlDecodeError:
+            print("Error: Invalid TOML format in config file.")
+            exit(1)  # Exit the program if the file is not valid TOML
+    return {}  # Return an empty dictionary if no config file exists
+
 
 def process_files(paths):
     """
@@ -35,17 +57,14 @@ def process_files(paths):
     return file_list
 
 def main():
-    """
-    Main function to handle command-line arguments, analyze code, and save the results.
-    
-    - Accepts one or more source code files to analyze.
-    - Allows specification of the AI model and output file.
-    """
+    # Load configuration from TOML file
+    config = load_config()
+
     parser = argparse.ArgumentParser(description=f'{TOOL_NAME} - Analyze code complexity using an AI model.')
 
     # Optional arguments
     parser.add_argument('-o', '--output', type=str, help='Output file name (default: stdout)', default=None)
-    parser.add_argument('-m', '--model', type=str, help='Model to use for analysis (default: llama-v2)', default='llama-v2')
+    parser.add_argument('-m', '--model', type=str, help='Model to use for analysis (default: llama-v2)', default=config.get('model', 'llama-v2'))
     
     # Add an optional API key argument
     parser.add_argument('-a', '--api-key', type=str, help='API key for the analysis service')
@@ -69,8 +88,8 @@ def main():
         sys.stderr.write("Error: No files provided for analysis\n")
         sys.exit(1)
 
-    # Check if API key is available (from args or environment variable)
-    api_key = args.api_key or os.getenv('API_KEY')
+    # Check if API key is available (from args, config, or environment variable)
+    api_key = args.api_key or config.get('api_key') or os.getenv('API_KEY')
     if not api_key:
         sys.stderr.write("Error: API key not provided. Use --api-key or set it in the .env file.\n")
         sys.exit(1)
@@ -107,6 +126,7 @@ def main():
         sys.exit(0)
     else:
         sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
