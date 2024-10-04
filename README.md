@@ -160,3 +160,44 @@ The tool now properly exits with a status code based on success or failure:
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/MadhurSaluja/Release-0.1/blob/main/LICENSE) file for details.
 
 
+
+
+## Configuration
+
+### TOML Configuration File Support
+You can now use a TOML configuration file to store default values for the API key and model. This allows the tool to run without needing to pass these values via the command line every time.
+
+### How to Use the Configuration File
+
+1. **Create a TOML Config File**:
+   - In your home directory, create a hidden TOML config file named `.your-toolname-config.toml` (replace "your-toolname" with the actual tool name).
+   
+   Example:
+   ```toml
+   model = "llama-v2"
+   api_key = "your-api-key-here"
+   ```
+
+2. **Location**:
+   - The tool will look for this configuration file in the home directory (`~/.your-toolname-config.toml`).
+
+3. **Settings**:
+   - `model`: The AI model to use for analysis (default: `llama-v2`).
+   - `api_key`: Your API key for the analysis service.
+
+### Command-Line Overrides
+- If you provide `--model` or `--api-key` as command-line arguments, they will override the values in the TOML configuration file.
+- For example:
+  
+  ```bash
+  python main.py --model gpt-3.5 --api-key new-api-key your_file.py
+  ```
+
+  This command will override the values from the TOML config file.
+
+### Example:
+Without passing command-line arguments, the tool will automatically use values from the TOML file:
+```bash
+python main.py your_file.py
+```
+
