@@ -155,10 +155,6 @@ The tool now properly exits with a status code based on success or failure:
 - Exit code `0` for successful processing.
 - Exit code `1` for errors such as missing files, invalid inputs, or missing API keys.
 ---
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/MadhurSaluja/Release-0.1/blob/main/LICENSE) file for details.
-
 
 
 
@@ -200,4 +196,8 @@ Without passing command-line arguments, the tool will automatically use values f
 ```bash
 python main.py your_file.py
 ```
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/MadhurSaluja/Release-0.1/blob/main/LICENSE) file for details.
+
 
