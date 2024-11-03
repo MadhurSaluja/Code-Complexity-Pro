@@ -1,4 +1,3 @@
-
 import argparse
 import os
 import toml
@@ -12,10 +11,13 @@ TOOL_NAME = "Code Complexity Pro"
 VERSION = "1.0.0"
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s'
+)
 
 # Load environment variables from a .env file if present
 load_dotenv()
+
 
 def load_config():
     """Load configuration settings from the user's home directory."""
@@ -28,6 +30,7 @@ def load_config():
             logging.error("Invalid TOML format in config file.")
             exit(1)
     return {}
+
 
 def process_files(paths):
     """Process file and directory paths and return a list of valid file paths."""
@@ -44,14 +47,25 @@ def process_files(paths):
             sys.exit(1)
     return file_list
 
+
 def parse_arguments():
     """Handle command-line argument parsing."""
-    parser = argparse.ArgumentParser(description=f'{TOOL_NAME} - Analyze code complexity using an AI model.')
-    parser.add_argument('--files', nargs='+', required=True, help="List of file paths or directories to analyze")
-    parser.add_argument('--model', default="llama-v2", help="AI model to use (default: llama-v2)")
+    parser = argparse.ArgumentParser(
+        description=f'{TOOL_NAME} - Analyze code complexity using an AI model.'
+    )
+    parser.add_argument(
+        '--files',
+        nargs='+',
+        required=True,
+        help="List of file paths or directories to analyze",
+    )
+    parser.add_argument(
+        '--model', default="llama-v2", help="AI model to use (default: llama-v2)"
+    )
     parser.add_argument('--api-key', help="API key for the AI model")
     parser.add_argument('--output', help="Optional output file to save the results")
     return parser.parse_args()
+
 
 def main():
     args = parse_arguments()
@@ -67,7 +81,11 @@ def main():
                 code = f.read()
 
             # Analyze code complexity using the AI model
-            result = analyze_complexity(code, model=args.model, api_key=args.api_key or config_settings.get('api_key'))
+            result = analyze_complexity(
+                code,
+                model=args.model,
+                api_key=args.api_key or config_settings.get('api_key'),
+            )
             logging.info(f"Successfully analyzed {file}.")
 
             if args.output:
@@ -75,6 +93,7 @@ def main():
 
         except Exception as e:
             logging.error(f"Error processing {file}: {e}")
+
 
 if __name__ == "__main__":
     main()
