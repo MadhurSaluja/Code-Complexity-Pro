@@ -1,3 +1,5 @@
 python-dotenv  # Manage environment variables
 requests       # For API calls
 argparse       # Parse command-line arguments
+black==23.3.0
+flake8==6.0.0
