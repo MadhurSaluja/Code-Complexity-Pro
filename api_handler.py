@@ -20,7 +20,7 @@ def send_code_to_groq(api_key, code, model):
         ],
     }
 
-    # Send the request
+    # Send the request and handle response
     response = requests.post(url, json=request_payload, headers=headers)
 
     if response.status_code == 200:

@@ -7,9 +7,6 @@ from complexity_analyzer import analyze_complexity
 from utils import write_output
 import logging
 
-TOOL_NAME = "Code Complexity Pro"
-VERSION = "1.0.0"
-
 # Configure logging
 logging.basicConfig(
     level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s'
@@ -51,7 +48,7 @@ def process_files(paths):
 def parse_arguments():
     """Handle command-line argument parsing."""
     parser = argparse.ArgumentParser(
-        description=f'{TOOL_NAME} - Analyze code complexity using an AI model.'
+        description='Code Complexity Pro - Analyze code complexity using an AI model.'
     )
     parser.add_argument(
         '--files',
@@ -60,7 +57,7 @@ def parse_arguments():
         help="List of file paths or directories to analyze",
     )
     parser.add_argument(
-        '--model', default="llama-v2", help="AI model to use (default: llama-v2)"
+        '--model', default="llama3-8b-8192", help="AI model to use (default: llama-v2)"
     )
     parser.add_argument('--api-key', help="API key for the AI model")
     parser.add_argument('--output', help="Optional output file to save the results")
@@ -70,6 +67,14 @@ def parse_arguments():
 def main():
     args = parse_arguments()
     config_settings = load_config()
+
+    # Validate API Key
+    api_key = args.api_key or os.getenv("API_KEY") or config_settings.get('api_key')
+    if not api_key:
+        logging.error(
+            "API key is required. Please set it in the .env file, config file, or pass via --api-key."
+        )
+        sys.exit(1)
 
     # Process the input files
     files_to_analyze = process_files(args.files)
@@ -83,8 +88,8 @@ def main():
             # Analyze code complexity using the AI model
             result = analyze_complexity(
                 code,
+                api_key=api_key,
                 model=args.model,
-                api_key=args.api_key or config_settings.get('api_key'),
             )
             logging.info(f"Successfully analyzed {file}.")
 

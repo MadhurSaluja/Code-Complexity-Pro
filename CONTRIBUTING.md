@@ -48,18 +48,7 @@ To maintain a consistent code style, we use **Black** as our code formatter and 
 
 ### `.blackignore` File
 
-The `.blackignore` file specifies files and directories Black should ignore, such as version control folders, virtual environments, and build artifacts. Here’s an example:
-
-```plaintext
-# .blackignore
-.git/
-__pycache__/
-venv/
-.venv/
-build/
-dist/
-.vscode/
-```
+The `.blackignore` file specifies files and directories Black should ignore, such as version control folders, virtual environments, and build artifacts.
 
 ## Makefile
 
@@ -67,47 +56,40 @@ A `Makefile` is included in the project to automate common tasks. Here are the m
 
 - **`make format`**: Formats all code with Black.
 - **`make lint`**: Runs Flake8 to check for linting errors.
+- **`make test`**: Runs all tests.
+- **`make test-one TEST=<test_file>::<test_function>`**: Runs a specific test file or function.
+- **`make watch`**: Automatically reruns tests on file changes.
 - **`make install`**: Installs dependencies from `requirements.txt`.
 
 Example usage:
 ```bash
 make format    # Formats code
 make lint      # Lints code
-make install   # Installs dependencies
+make test      # Runs all tests
+make test-one TEST=tests/test_utils.py::test_function  # Runs a specific test
+make watch     # Watches for changes and reruns tests
 ```
 
-## Editor and IDE Integration
+## Running Tests
 
-To ensure consistent styling and linting while coding, we recommend using **Visual Studio Code**. A `.vscode/settings.json` file is provided to configure Black and Flake8.
+We use **pytest** for testing.
 
-1. **Install the Python Extension**:
-   - In VS Code, go to the Extensions view (⇧⌘X or Ctrl+Shift+X).
-   - Search for "Python" by Microsoft and install it.
+1. **Run All Tests**:
+   ```bash
+   make test
+   ```
 
-2. **Project Configuration**:
-   - The `.vscode/settings.json` file configures Black as the formatter and Flake8 as the linter.
-   - **Automatic Formatting**: Black will format code on save.
-   - **Linting**: Flake8 will underline errors and warnings in real-time.
+2. **Run a Specific Test File or Function**:
+   To run a specific test, specify the `TEST` variable:
+   ```bash
+   make test-one TEST=tests/test_utils.py::test_function
+   ```
 
-3. **Settings**:
-   - Black’s line length and Flake8’s ignored errors are pre-configured in `.vscode/settings.json`:
-
-     ```json
-     {
-       "python.formatting.provider": "black",
-       "editor.formatOnSave": true,
-       "python.linting.flake8Enabled": true,
-       "python.linting.enabled": true,
-       "python.formatting.blackArgs": ["--line-length", "88"],
-       "python.linting.flake8Args": ["--max-line-length=88", "--ignore=E203,E266,E501,W503"],
-       "files.exclude": {
-         "**/__pycache__": true,
-         "**/.git": true,
-         "**/.vscode": true,
-         "**/venv": true
-       }
-     }
-     ```
+3. **Automatically Rerun Tests on Code Changes**:
+   Use the `watch` command to monitor changes and rerun tests automatically:
+   ```bash
+   make watch
+   ```
 
 ## Git Pre-Commit Hook
 
@@ -119,22 +101,7 @@ We use a pre-commit hook to automatically run Black and Flake8 on staged changes
    ```
 
 2. **Set Up the Hook**:
-   The `.pre-commit-config.yaml` file defines the pre-commit hook settings:
-
-   ```yaml
-   # .pre-commit-config.yaml
-   repos:
-     - repo: https://github.com/psf/black
-       rev: 22.3.0  # Use the latest Black version
-       hooks:
-         - id: black
-           args: ["--line-length", "88"]
-     - repo: https://github.com/pycqa/flake8
-       rev: 4.0.1  # Use the latest Flake8 version
-       hooks:
-         - id: flake8
-           args: ["--max-line-length=88", "--ignore=E203,E266,E501,W503"]
-   ```
+   The `.pre-commit-config.yaml` file defines the pre-commit hook settings.
 
 3. **Activate the Pre-Commit Hook**:
    Run the following command to install the hook:
@@ -150,22 +117,20 @@ We use a pre-commit hook to automatically run Black and Flake8 on staged changes
 
 You can use a TOML configuration file to store default values for the API key and model, allowing the tool to run without needing to pass these values via the command line each time.
 
-### How to Use the Configuration File
-
 1. **Create a TOML Config File**:
-   - In your home directory, create a hidden TOML config file named `.your-toolname-config.toml` (replace "your-toolname" with the actual tool name).
+   - In your home directory, create a hidden TOML config file named `.Code-complexity-pro-config.toml`.
 
    Example:
    ```toml
-   model = "llama-v2"
+   model = "llama3-8b-8192"
    api_key = "your-api-key-here"
    ```
 
 2. **Location**:
-   - The tool will look for this configuration file in the home directory (`~/.your-toolname-config.toml`).
+   - The tool will look for this configuration file in the home directory (`~/.Code-complexity-pro-config.toml`).
 
 3. **Settings**:
-   - `model`: The AI model to use for analysis (default: `llama-v2`).
+   - `model`: The AI model to use for analysis (default: `llama3-8b-8192`).
    - `api_key`: Your API key for the analysis service.
 
 ### Command-Line Overrides
