@@ -1,4 +1,3 @@
-import pytest
 from unittest.mock import patch, Mock
 from api_handler import send_code_to_groq
 
