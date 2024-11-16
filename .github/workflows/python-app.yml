@@ -25,13 +25,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-
+    
     - name: Run linting
       run: |
         pip install black flake8
-        blackignore_file=$(pwd)/blackignore
-        black . --check --exclude "$(cat $blackignore_file)"
-        flake8 --config=flake8
+        black . --check --exclude "$(cat blackignore)"
+        flake8
+
 
     - name: Run tests
       run: |
