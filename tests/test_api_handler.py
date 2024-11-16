@@ -25,5 +25,7 @@ def test_send_code_to_groq_success(mock_post):
 
     # Call the function and verify its output
     result, token_usage = send_code_to_groq(api_key, code, model)
-    assert result == mock_response_data["choices"][0]["message"]["content"], "Unexpected analysis result"
+    assert (
+        result == mock_response_data["choices"][0]["message"]["content"]
+    ), "Unexpected analysis result"
     assert token_usage == mock_response_data["usage"], "Unexpected token usage"
