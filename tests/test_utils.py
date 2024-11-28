@@ -1,5 +1,7 @@
 import pytest
-from utils import write_output
+from code_complexity_pro.utils import write_output
+# The rest of the test file remains unchanged
+
 
 
 def test_write_output_basic(tmp_path):

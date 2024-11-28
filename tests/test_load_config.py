@@ -5,7 +5,7 @@ import toml
 import logging
 
 # Import the function from main.py
-from main import load_config
+from code_complexity_pro.main import load_config
 
 # Test the case where the config file exists and is valid.
 @patch('os.path.exists')

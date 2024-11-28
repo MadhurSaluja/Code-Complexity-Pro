@@ -1,5 +1,5 @@
+from code_complexity_pro.api_handler import send_code_to_groq
 from unittest.mock import patch, Mock
-from api_handler import send_code_to_groq
 
 # Sample mock response data for successful API calls
 mock_response_data = {
@@ -7,8 +7,7 @@ mock_response_data = {
     "usage": {"prompt_tokens": 10, "completion_tokens": 15, "total_tokens": 25},
 }
 
-
-@patch("api_handler.requests.post")
+@patch("code_complexity_pro.api_handler.requests.post")
 def test_send_code_to_groq_success(mock_post):
     """
     Test `send_code_to_groq` with valid inputs and a successful API response.
