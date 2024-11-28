@@ -3,8 +3,8 @@ import os
 import toml
 import sys
 from dotenv import load_dotenv
-from complexity_analyzer import analyze_complexity
-from utils import write_output
+from code_complexity_pro.complexity_analyzer import analyze_complexity
+from code_complexity_pro.utils import write_output
 import logging
 
 # Configure logging

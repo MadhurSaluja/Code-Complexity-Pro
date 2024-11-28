@@ -12,6 +12,12 @@ This is a command-line tool that analyzes the complexity of source code files us
 - **API Key Configuration**: API keys can be passed via the `--api-key` or `-a` flag, or you can configure them in a `.env` file.
 - **Error Logging**: All debug and error messages are logged to `stderr`, keeping output clean.
 
+## Installation
+
+Install Code Complexity Pro from PyPI:
+```bash
+pip install code-complexity-pro
+
 ## Usage
 
 You can run the tool from the command line with various flags and options. Here are some examples:
@@ -48,7 +54,7 @@ python main.py your_file.py --model gpt-3.5
 
 ### 7. Pass API Key and Base URL via Command Line
 ```bash
-python main.py your_file.py --api-key your_grok_api_key --base-url https://api.custom-url.com
+python main.py your_file.py --api-key your_groq_api_key --base-url https://api.custom-url.com
 ```
 
 ### 8. Error Handling
