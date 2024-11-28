@@ -16,7 +16,7 @@ This is a command-line tool that analyzes the complexity of source code files us
 
 Install Code Complexity Pro from PyPI:
 ```bash
-pip install code-complexity-pro
+pip install code-complexity-pro==1.1.2
 
 ## Usage
 
